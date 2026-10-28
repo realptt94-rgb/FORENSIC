@@ -5,9 +5,12 @@ import {
   DEMO_EMAIL,
   DEMO_PASS,
   PRIORITIES,
+  PRIORITY_LABEL,
   RISKS,
+  RISK_LABEL,
   SERVICES,
   STATUSES,
+  STATUS_LABEL,
   clearSession,
   dueInfo,
   fmtDate,
@@ -55,17 +58,18 @@ function RiskBadge({ risk }: { risk: Risk }) {
     <span
       className={`inline-block rounded border px-2 py-0.5 font-mono text-[10px] tracking-[0.1em] ${RISK_STYLE[risk]}`}
     >
-      {risk.toUpperCase()}
+      {RISK_LABEL[risk].toUpperCase()}
     </span>
   );
 }
 
 function StatusBadge({ status }: { status: string }) {
+  const label = STATUS_LABEL[status as keyof typeof STATUS_LABEL] ?? status;
   return (
     <span
       className={`inline-block rounded border px-2 py-0.5 font-mono text-[10px] tracking-[0.1em] ${STATUS_STYLE[status] ?? STATUS_STYLE.Intake}`}
     >
-      {status.toUpperCase()}
+      {label.toUpperCase()}
     </span>
   );
 }
@@ -87,7 +91,7 @@ function DueChip({ iso }: { iso: string | null }) {
   );
 }
 
-/* ---------------- shared bits ---------------- */
+/* ---------------- éléments partagés ---------------- */
 
 function Panel({
   title,
@@ -142,7 +146,7 @@ function Modal({
             type="button"
             onClick={onClose}
             className="grid h-8 w-8 place-items-center rounded-md border border-line text-fog transition-colors hover:border-alert/50 hover:text-alert"
-            aria-label="Close dialog"
+            aria-label="Fermer la fenêtre"
           >
             <IconX className="h-4 w-4" />
           </button>
@@ -153,7 +157,7 @@ function Modal({
   );
 }
 
-/* ---------------- login ---------------- */
+/* ---------------- connexion ---------------- */
 
 function CrmLogin({ onSuccess }: { onSuccess: (s: Session) => void }) {
   const toast = useToast();
@@ -167,10 +171,10 @@ function CrmLogin({ onSuccess }: { onSuccess: (s: Session) => void }) {
     if (tryLogin(email, password)) {
       const s = { email: email.trim().toLowerCase() };
       setSession(s);
-      toast("Authenticated — secure session established.");
+      toast("Authentifié — session sécurisée établie.");
       onSuccess(s);
     } else {
-      setError("Invalid credentials. Use the demo access line below.");
+      setError("Identifiants invalides. Utilisez la ligne d'accès démo ci-dessous.");
       setShakeKey((k) => k + 1);
     }
   };
@@ -195,20 +199,21 @@ function CrmLogin({ onSuccess }: { onSuccess: (s: Session) => void }) {
               FORENSIC INTELLIGENCE
             </strong>
             <small className="mt-0.5 block font-mono text-[9.5px] tracking-[0.14em] text-dim">
-              SECUTOR PRO LLC · CLIENT CRM
+              SECUTOR PRO LLC · CRM CLIENT
             </small>
           </span>
         </a>
 
         <p className="eyebrow mt-7 flex items-center gap-2.5">
-          <IconLock className="h-3.5 w-3.5" /> Secure operations
+          <IconLock className="h-3.5 w-3.5" /> Opérations sécurisées
         </p>
         <h1 className="mt-3 font-display text-[30px] font-bold leading-tight tracking-[-0.02em]">
-          Client Intelligence CRM
+          CRM d'Intelligence Client
         </h1>
         <p className="mt-2.5 text-[13px] leading-relaxed text-fog">
-          Internal case, client, task and intelligence management. Local MVP — production
-          deployment requires TLS, MFA and hardened hosting.
+          Gestion interne des dossiers, clients, tâches et notes d'intelligence.
+          Version MVP locale — le déploiement en production nécessite TLS, MFA et
+          hébergement durci.
         </p>
 
         <form onSubmit={submit} className="mt-6 space-y-3">
@@ -216,7 +221,7 @@ function CrmLogin({ onSuccess }: { onSuccess: (s: Session) => void }) {
             type="email"
             required
             autoComplete="username"
-            placeholder="Email"
+            placeholder="Adresse e-mail"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             className="field"
@@ -225,13 +230,13 @@ function CrmLogin({ onSuccess }: { onSuccess: (s: Session) => void }) {
             type="password"
             required
             autoComplete="current-password"
-            placeholder="Password"
+            placeholder="Mot de passe"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             className="field"
           />
           <button type="submit" className="btn btn-primary w-full">
-            Sign in
+            Se connecter
             <IconLock className="h-3.5 w-3.5" />
           </button>
         </form>
@@ -246,7 +251,7 @@ function CrmLogin({ onSuccess }: { onSuccess: (s: Session) => void }) {
           <div className="flex items-center justify-between gap-3">
             <div className="font-mono text-[10.5px] leading-relaxed tracking-[0.06em] text-fog">
               <span className="mb-1 block text-[9px] tracking-[0.2em] text-dim">
-                DEMO ACCESS
+                ACCÈS DÉMO
               </span>
               {DEMO_EMAIL}
               <br />
@@ -261,7 +266,7 @@ function CrmLogin({ onSuccess }: { onSuccess: (s: Session) => void }) {
               }}
               className="btn btn-line btn-sm"
             >
-              Autofill
+              Préremplir
             </button>
           </div>
         </div>
@@ -270,14 +275,14 @@ function CrmLogin({ onSuccess }: { onSuccess: (s: Session) => void }) {
           href="#/"
           className="mt-5 inline-flex items-center gap-2 text-[12.5px] font-semibold text-signal transition-colors hover:text-ink"
         >
-          ← Back to public website
+          ← Retour au site public
         </a>
       </div>
     </div>
   );
 }
 
-/* ---------------- dashboard ---------------- */
+/* ---------------- tableau de bord ---------------- */
 
 function Dashboard({ store }: { store: ReturnType<typeof useCrm> }) {
   const { state, toggleTask } = store;
@@ -297,13 +302,13 @@ function Dashboard({ store }: { store: ReturnType<typeof useCrm> }) {
   const clientName = (id: number | null) =>
     state.clients.find((c) => c.id === id)?.name ?? "—";
   const caseTitle = (id: number | null) =>
-    state.cases.find((c) => c.id === id)?.title ?? "General";
+    state.cases.find((c) => c.id === id)?.title ?? "Général";
 
   const kpis: [string, number, string, string][] = [
-    ["ACTIVE CLIENTS", state.clients.length, "Registry synced", "border-l-signal"],
-    ["OPEN CASES", openCases.length, "Live portfolio", "border-l-teal"],
-    ["HIGH-RISK MATTERS", highRisk.length, "Needs attention", "border-l-alert"],
-    ["OPEN TASKS", openTasks.length, "In queue", "border-l-amber"],
+    ["CLIENTS ACTIFS", state.clients.length, "Registre synchronisé", "border-l-signal"],
+    ["DOSSIERS OUVERTS", openCases.length, "Portefeuille en direct", "border-l-teal"],
+    ["DOSSIERS À HAUT RISQUE", highRisk.length, "À surveiller", "border-l-alert"],
+    ["TÂCHES OUVERTES", openTasks.length, "En file d'attente", "border-l-amber"],
   ];
 
   return (
@@ -326,11 +331,11 @@ function Dashboard({ store }: { store: ReturnType<typeof useCrm> }) {
       </div>
 
       <div className="grid gap-6 xl:grid-cols-2">
-        <Panel title="Priority Cases" meta="LIVE PORTFOLIO · HIGH & CRITICAL">
+        <Panel title="Dossiers prioritaires" meta="PORTEFEUILLE EN DIRECT · HAUT ET CRITIQUE">
           {priority.length === 0 ? (
             <p className="flex items-center gap-3 py-6 text-[13px] text-dim">
               <IconPulse className="h-4 w-4 text-signal" />
-              No high-risk open matters — portfolio calm.
+              Aucun dossier ouvert à haut risque — portefeuille calme.
             </p>
           ) : (
             <ul className="divide-y divide-line/60">
@@ -360,11 +365,11 @@ function Dashboard({ store }: { store: ReturnType<typeof useCrm> }) {
           )}
         </Panel>
 
-        <Panel title="Next Actions" meta="OPERATIONAL QUEUE · BY DUE DATE">
+        <Panel title="Prochaines actions" meta="FILE OPÉRATIONNELLE · PAR ÉCHÉANCE">
           {next.length === 0 ? (
             <p className="flex items-center gap-3 py-6 text-[13px] text-dim">
               <IconCheck className="h-4 w-4 text-signal" />
-              Queue clear — every task resolved.
+              File vidée — toutes les tâches résolues.
             </p>
           ) : (
             <ul className="divide-y divide-line/60">
@@ -376,7 +381,7 @@ function Dashboard({ store }: { store: ReturnType<typeof useCrm> }) {
                   <button
                     type="button"
                     onClick={() => toggleTask(t.id)}
-                    aria-label={`Mark "${t.title}" done`}
+                    aria-label={`Marquer « ${t.title} » comme terminée`}
                     className="grid h-5 w-5 shrink-0 place-items-center rounded-full border border-edge text-transparent transition-all hover:border-signal hover:text-signal active:scale-90"
                   >
                     <IconCheck className="h-3 w-3" />
@@ -386,7 +391,7 @@ function Dashboard({ store }: { store: ReturnType<typeof useCrm> }) {
                     <p className="mt-0.5 truncate font-mono text-[10px] tracking-[0.08em] text-dim">
                       {caseTitle(t.case_id).toUpperCase()} ·{" "}
                       <span className={PRIORITY_STYLE[t.priority]}>
-                        {t.priority.toUpperCase()}
+                        {PRIORITY_LABEL[t.priority].toUpperCase()}
                       </span>
                     </p>
                   </div>
@@ -401,12 +406,12 @@ function Dashboard({ store }: { store: ReturnType<typeof useCrm> }) {
       <p className="flex flex-wrap items-center gap-x-6 gap-y-2 rounded-lg border border-line/70 bg-deep/70 px-5 py-3.5 font-mono text-[9.5px] tracking-[0.16em] text-dim">
         <span className="flex items-center gap-2 text-signal">
           <span className="dot-live h-1.5 w-1.5 rounded-full bg-signal" />
-          REGISTRY INTEGRITY: OK
+          INTÉGRITÉ DU REGISTRE : OK
         </span>
-        <span>LAST SYNC: JUST NOW</span>
+        <span>DERNIÈRE SYNCHRO : À L'INSTANT</span>
         <span>
           {state.clients.length + state.cases.length + state.tasks.length + state.notes.length}{" "}
-          RECORDS INDEXED
+          ENREGISTREMENTS INDEXÉS
         </span>
       </p>
     </div>
@@ -419,14 +424,14 @@ function ClientsView({ store }: { store: ReturnType<typeof useCrm> }) {
   const { state } = store;
   return (
     <Panel
-      title="Client Registry"
-      meta="LAW FIRMS · INVESTORS · EXECUTIVES · COMPANIES"
+      title="Registre des clients"
+      meta="CABINETS · INVESTISSEURS · DIRIGEANTS · ENTREPRISES"
     >
       <div className="overflow-x-auto">
         <table className="w-full min-w-[680px] text-left text-[13px]">
           <thead>
             <tr className="border-b border-line">
-              {["CLIENT", "ORGANIZATION", "EMAIL", "TYPE", "JURISDICTION"].map((h) => (
+              {["CLIENT", "ORGANISATION", "E-MAIL", "TYPE", "JURIDICTION"].map((h) => (
                 <th
                   key={h}
                   className="px-4 py-3 font-mono text-[9.5px] font-medium tracking-[0.18em] text-dim"
@@ -445,7 +450,7 @@ function ClientsView({ store }: { store: ReturnType<typeof useCrm> }) {
                 <td className="px-4 py-3.5">
                   <p className="font-semibold text-ink">{c.name}</p>
                   <p className="mt-0.5 font-mono text-[9.5px] tracking-[0.08em] text-dim">
-                    SINCE {fmtDate(c.created_at).toUpperCase()}
+                    DEPUIS {fmtDate(c.created_at).toUpperCase()}
                   </p>
                 </td>
                 <td className="px-4 py-3.5 text-fog">{c.organization || "—"}</td>
@@ -462,7 +467,7 @@ function ClientsView({ store }: { store: ReturnType<typeof useCrm> }) {
         </table>
       </div>
       <p className="mt-4 font-mono text-[9.5px] tracking-[0.16em] text-dim">
-        {state.clients.length} RECORDS · ORDERED BY INTAKE
+        {state.clients.length} ENREGISTREMENTS · ORDONNÉS PAR ACCUEIL
       </p>
     </Panel>
   );
@@ -473,12 +478,12 @@ function CasesView({ store }: { store: ReturnType<typeof useCrm> }) {
   const clientName = (id: number | null) =>
     state.clients.find((c) => c.id === id)?.name ?? "—";
   return (
-    <Panel title="Case Portfolio" meta="FORENSIC & REPUTATION MATTERS">
+    <Panel title="Portefeuille de dossiers" meta="MISSIONS FORENSIQUES ET DE RÉPUTATION">
       <div className="overflow-x-auto">
         <table className="w-full min-w-[760px] text-left text-[13px]">
           <thead>
             <tr className="border-b border-line">
-              {["CASE", "CLIENT", "SERVICE", "RISK", "STATUS", "VALUE"].map((h) => (
+              {["DOSSIER", "CLIENT", "SERVICE", "RISQUE", "STATUT", "VALEUR"].map((h) => (
                 <th
                   key={h}
                   className="px-4 py-3 font-mono text-[9.5px] font-medium tracking-[0.18em] text-dim"
@@ -521,8 +526,8 @@ function CasesView({ store }: { store: ReturnType<typeof useCrm> }) {
         </table>
       </div>
       <p className="mt-4 font-mono text-[9.5px] tracking-[0.16em] text-dim">
-        {state.cases.length} MATTERS ·{" "}
-        {fmtUsd(state.cases.reduce((s, c) => s + c.value, 0))} AGGREGATE VALUE
+        {state.cases.length} MISSIONS ·{" "}
+        {fmtUsd(state.cases.reduce((s, c) => s + c.value, 0))} VALEUR AGRÉGÉE
       </p>
     </Panel>
   );
@@ -531,15 +536,15 @@ function CasesView({ store }: { store: ReturnType<typeof useCrm> }) {
 function TasksView({ store }: { store: ReturnType<typeof useCrm> }) {
   const { state, toggleTask } = store;
   const caseTitle = (id: number | null) =>
-    state.cases.find((c) => c.id === id)?.title ?? "General";
+    state.cases.find((c) => c.id === id)?.title ?? "Général";
   const sorted = [...state.tasks].sort((a, b) =>
     Number(a.done) - Number(b.done) ||
     (a.due_date ?? "9999").localeCompare(b.due_date ?? "9999"),
   );
   return (
     <Panel
-      title="Operational Tasks"
-      meta={`${state.tasks.filter((t) => !t.done).length} OPEN · ${state.tasks.filter((t) => t.done).length} CLEARED`}
+      title="Tâches opérationnelles"
+      meta={`${state.tasks.filter((t) => !t.done).length} OUVERTES · ${state.tasks.filter((t) => t.done).length} RÉGLÉES`}
     >
       <ul className="divide-y divide-line/60">
         {sorted.map((t) => (
@@ -550,7 +555,7 @@ function TasksView({ store }: { store: ReturnType<typeof useCrm> }) {
             <button
               type="button"
               onClick={() => toggleTask(t.id)}
-              aria-label={`Toggle "${t.title}"`}
+              aria-label={`Basculer « ${t.title} »`}
               aria-pressed={t.done}
               className={`grid h-[22px] w-[22px] shrink-0 place-items-center rounded-full border transition-all active:scale-90 ${
                 t.done
@@ -573,7 +578,7 @@ function TasksView({ store }: { store: ReturnType<typeof useCrm> }) {
             <span
               className={`hidden font-mono text-[10px] tracking-[0.14em] sm:block ${PRIORITY_STYLE[t.priority]}`}
             >
-              {t.priority.toUpperCase()}
+              {PRIORITY_LABEL[t.priority].toUpperCase()}
             </span>
             <DueChip iso={t.due_date} />
           </li>
@@ -588,7 +593,7 @@ function NotesView({ store }: { store: ReturnType<typeof useCrm> }) {
   const caseTitle = (id: number | null) =>
     state.cases.find((c) => c.id === id)?.title ?? null;
   return (
-    <Panel title="Intelligence Notes" meta="ANALYST OBSERVATIONS · CHAIN-OF-CUSTODY AWARE">
+    <Panel title="Notes d'intelligence" meta="OBSERVATIONS ANALYSTES · TRAÇABILITÉ CONSERVÉE">
       <div className="space-y-4">
         {state.notes.map((n, i) => (
           <article
@@ -600,7 +605,7 @@ function NotesView({ store }: { store: ReturnType<typeof useCrm> }) {
                 #N-{String(state.notes.length - i).padStart(3, "0")}
               </span>
               <span className="font-mono text-[10px] tracking-[0.12em] text-fog">
-                {(caseTitle(n.case_id) ?? "GENERAL NOTE").toUpperCase()}
+                {(caseTitle(n.case_id) ?? "NOTE GÉNÉRALE").toUpperCase()}
               </span>
               <span className="ml-auto font-mono text-[9.5px] tracking-[0.1em] text-dim">
                 {fmtDate(n.created_at).toUpperCase()}
@@ -614,7 +619,7 @@ function NotesView({ store }: { store: ReturnType<typeof useCrm> }) {
   );
 }
 
-/* ---------------- forms ---------------- */
+/* ---------------- formulaires ---------------- */
 
 function ClientForm({
   store,
@@ -634,24 +639,24 @@ function ClientForm({
       client_type: String(fd.get("client_type") || "Other"),
       jurisdiction: String(fd.get("jurisdiction") || "").trim(),
     });
-    toast("Client registered to the registry.");
+    toast("Client enregistré dans le registre.");
     onDone();
   };
   return (
     <form onSubmit={submit} className="space-y-3">
-      <input name="name" required placeholder="Contact name" className="field" />
-      <input name="organization" placeholder="Organization" className="field" />
-      <input name="email" type="email" placeholder="Email" className="field" />
+      <input name="name" required placeholder="Nom du contact" className="field" />
+      <input name="organization" placeholder="Organisation" className="field" />
+      <input name="email" type="email" placeholder="Adresse e-mail" className="field" />
       <div className="grid gap-3 sm:grid-cols-2">
         <select name="client_type" className="field" defaultValue="Law Firm">
           {CLIENT_TYPES.map((t) => (
             <option key={t}>{t}</option>
           ))}
         </select>
-        <input name="jurisdiction" placeholder="Jurisdiction" className="field" />
+        <input name="jurisdiction" placeholder="Juridiction" className="field" />
       </div>
       <button type="submit" className="btn btn-primary mt-2 w-full">
-        Create Client
+        Créer le client
       </button>
     </form>
   );
@@ -677,15 +682,15 @@ function CaseForm({
       value: Number(fd.get("value")) || 0,
       summary: String(fd.get("summary") || "").trim(),
     });
-    toast("Case opened — matter added to portfolio.");
+    toast("Dossier ouvert — mission ajoutée au portefeuille.");
     onDone();
   };
   return (
     <form onSubmit={submit} className="space-y-3">
-      <input name="title" required placeholder="Matter / case title" className="field" />
+      <input name="title" required placeholder="Titre de la mission / du dossier" className="field" />
       <select name="client_id" required defaultValue="" className="field">
         <option value="" disabled>
-          Select client
+          Sélectionner un client
         </option>
         {store.state.clients.map((c) => (
           <option key={c.id} value={c.id}>
@@ -701,14 +706,14 @@ function CaseForm({
         </select>
         <select name="risk" className="field" defaultValue="Medium">
           {RISKS.map((r) => (
-            <option key={r}>{r}</option>
+            <option key={r} value={r}>{RISK_LABEL[r]}</option>
           ))}
         </select>
       </div>
       <div className="grid gap-3 sm:grid-cols-2">
         <select name="status" className="field" defaultValue="Intake">
           {STATUSES.map((s) => (
-            <option key={s}>{s}</option>
+            <option key={s} value={s}>{STATUS_LABEL[s]}</option>
           ))}
         </select>
         <input
@@ -716,18 +721,18 @@ function CaseForm({
           type="number"
           min={0}
           step={100}
-          placeholder="Matter value / fee (USD)"
+          placeholder="Valeur de la mission / honoraires (USD)"
           className="field"
         />
       </div>
       <textarea
         name="summary"
         rows={4}
-        placeholder="Executive summary"
+        placeholder="Résumé exécutif"
         className="field resize-y"
       />
       <button type="submit" className="btn btn-primary mt-2 w-full">
-        Open Case
+        Ouvrir le dossier
       </button>
     </form>
   );
@@ -750,15 +755,15 @@ function TaskForm({
       due_date: String(fd.get("due_date") || "") || null,
       priority: String(fd.get("priority") || "Normal") as Priority,
     });
-    toast("Task queued in operational list.");
+    toast("Tâche ajoutée à la file opérationnelle.");
     onDone();
   };
   return (
     <form onSubmit={submit} className="space-y-3">
-      <input name="title" required placeholder="Task" className="field" />
+      <input name="title" required placeholder="Tâche" className="field" />
       <div className="grid gap-3 sm:grid-cols-2">
         <select name="case_id" defaultValue="" className="field">
-          <option value="">No case</option>
+          <option value="">Aucun dossier</option>
           {store.state.cases.map((c) => (
             <option key={c.id} value={c.id}>
               {c.title}
@@ -769,11 +774,11 @@ function TaskForm({
       </div>
       <select name="priority" className="field" defaultValue="Normal">
         {PRIORITIES.map((p) => (
-          <option key={p}>{p}</option>
+          <option key={p} value={p}>{PRIORITY_LABEL[p]}</option>
         ))}
       </select>
       <button type="submit" className="btn btn-primary mt-2 w-full">
-        Add Task
+        Ajouter la tâche
       </button>
     </form>
   );
@@ -794,13 +799,13 @@ function NoteForm({
       case_id: Number(fd.get("case_id")) || null,
       body: String(fd.get("body") || "").trim(),
     });
-    toast("Intelligence note saved.");
+    toast("Note d'intelligence enregistrée.");
     onDone();
   };
   return (
     <form onSubmit={submit} className="space-y-3">
       <select name="case_id" defaultValue="" className="field">
-        <option value="">General note</option>
+        <option value="">Note générale</option>
         {store.state.cases.map((c) => (
           <option key={c.id} value={c.id}>
             {c.title}
@@ -811,24 +816,24 @@ function NoteForm({
         name="body"
         rows={7}
         required
-        placeholder="Observation, evidence reference, analyst note…"
+        placeholder="Observation, référence de preuve, note d'analyste…"
         className="field resize-y"
       />
       <button type="submit" className="btn btn-primary mt-2 w-full">
-        Save Note
+        Enregistrer la note
       </button>
     </form>
   );
 }
 
-/* ---------------- shell ---------------- */
+/* ---------------- coque ---------------- */
 
 const VIEW_META: Record<View, { title: string; label: string }> = {
-  dashboard: { title: "Command Center", label: "Command Center" },
+  dashboard: { title: "Centre de commandement", label: "Centre de commandement" },
   clients: { title: "Clients", label: "Clients" },
-  cases: { title: "Cases", label: "Cases" },
-  tasks: { title: "Tasks", label: "Tasks" },
-  notes: { title: "Intelligence Notes", label: "Intelligence Notes" },
+  cases: { title: "Dossiers", label: "Dossiers" },
+  tasks: { title: "Tâches", label: "Tâches" },
+  notes: { title: "Notes d'intelligence", label: "Notes d'intelligence" },
 };
 
 export default function Crm() {
@@ -845,7 +850,7 @@ export default function Crm() {
   const logout = () => {
     clearSession();
     setSess(null);
-    toast("Session terminated — signed out.");
+    toast("Session terminée — déconnexion effectuée.");
   };
 
   const navItems: { id: View; count?: number }[] = [
@@ -858,7 +863,7 @@ export default function Crm() {
 
   return (
     <div className="flex min-h-screen">
-      {/* sidebar */}
+      {/* barre latérale */}
       <aside className="sticky top-0 hidden h-screen w-[250px] shrink-0 flex-col border-r border-line/70 bg-deep/85 md:flex">
         <a href="#/" className="group flex items-center gap-3 border-b border-line/70 px-5 py-5">
           <span className="grid h-10 w-10 place-items-center rounded-[9px] border border-signal/60 bg-deep font-display text-[12px] font-bold tracking-widest text-signal">
@@ -869,7 +874,7 @@ export default function Crm() {
               FORENSIC
             </strong>
             <small className="block font-mono text-[9px] tracking-[0.16em] text-dim">
-              CLIENT CRM
+              CRM CLIENT
             </small>
           </span>
         </a>
@@ -905,14 +910,14 @@ export default function Crm() {
             className="btn btn-ghost btn-sm mt-3 w-full"
           >
             <IconOut className="h-3.5 w-3.5" />
-            Sign out
+            Se déconnecter
           </button>
         </div>
       </aside>
 
-      {/* main */}
+      {/* zone principale */}
       <div className="min-w-0 flex-1">
-        {/* mobile bar */}
+        {/* barre mobile */}
         <div className="sticky top-0 z-40 border-b border-line/70 bg-abyss/92 backdrop-blur-xl md:hidden">
           <div className="flex items-center justify-between px-4 py-3">
             <a href="#/" className="flex items-center gap-2.5">
@@ -920,14 +925,14 @@ export default function Crm() {
                 HTS
               </span>
               <strong className="font-display text-[12px] font-bold tracking-[0.08em]">
-                CLIENT CRM
+                CRM CLIENT
               </strong>
             </a>
             <button
               type="button"
               onClick={logout}
               className="grid h-9 w-9 place-items-center rounded-md border border-line text-fog"
-              aria-label="Sign out"
+              aria-label="Se déconnecter"
             >
               <IconOut className="h-4 w-4" />
             </button>
@@ -972,7 +977,7 @@ export default function Crm() {
               className="btn btn-primary btn-sm"
             >
               <IconPlus className="h-3.5 w-3.5" />
-              New Case
+              Nouveau dossier
             </button>
           </div>
         </header>
@@ -984,8 +989,8 @@ export default function Crm() {
             {view === "cases" && <CasesView store={store} />}
             {view === "tasks" && (
               <Panel
-                title="Operational Tasks"
-                meta="TOGGLE TO CLEAR · SORTED BY DUE DATE"
+                title="Tâches opérationnelles"
+                meta="COCHER POUR TERMINER · TRIÉES PAR ÉCHÉANCE"
                 action={
                   <button
                     type="button"
@@ -993,7 +998,7 @@ export default function Crm() {
                     className="btn btn-line btn-sm"
                   >
                     <IconPlus className="h-3.5 w-3.5" />
-                    Task
+                    Tâche
                   </button>
                 }
               >
@@ -1002,8 +1007,8 @@ export default function Crm() {
             )}
             {view === "notes" && (
               <Panel
-                title="Intelligence Notes"
-                meta="ANALYST OBSERVATIONS · CHAIN-OF-CUSTODY AWARE"
+                title="Notes d'intelligence"
+                meta="OBSERVATIONS ANALYSTES · TRAÇABILITÉ CONSERVÉE"
                 action={
                   <button
                     type="button"
@@ -1022,24 +1027,24 @@ export default function Crm() {
         </main>
       </div>
 
-      {/* modals */}
+      {/* fenêtres modales */}
       {modal === "client" && (
-        <Modal title="New Client" onClose={() => setModal(null)}>
+        <Modal title="Nouveau client" onClose={() => setModal(null)}>
           <ClientForm store={store} onDone={() => setModal(null)} />
         </Modal>
       )}
       {modal === "case" && (
-        <Modal title="New Case" onClose={() => setModal(null)}>
+        <Modal title="Nouveau dossier" onClose={() => setModal(null)}>
           <CaseForm store={store} onDone={() => setModal(null)} />
         </Modal>
       )}
       {modal === "task" && (
-        <Modal title="New Task" onClose={() => setModal(null)}>
+        <Modal title="Nouvelle tâche" onClose={() => setModal(null)}>
           <TaskForm store={store} onDone={() => setModal(null)} />
         </Modal>
       )}
       {modal === "note" && (
-        <Modal title="Intelligence Note" onClose={() => setModal(null)}>
+        <Modal title="Note d'intelligence" onClose={() => setModal(null)}>
           <NoteForm store={store} onDone={() => setModal(null)} />
         </Modal>
       )}
@@ -1047,12 +1052,12 @@ export default function Crm() {
   );
 }
 
-/* unwrapped list bodies (panels provided by the shell for tasks/notes) */
+/* corps de listes déballés (panneaux fournis par la coque pour tâches/notes) */
 
 function TasksList({ store }: { store: ReturnType<typeof useCrm> }) {
   const { state, toggleTask } = store;
   const caseTitle = (id: number | null) =>
-    state.cases.find((c) => c.id === id)?.title ?? "General";
+    state.cases.find((c) => c.id === id)?.title ?? "Général";
   const sorted = [...state.tasks].sort(
     (a, b) =>
       Number(a.done) - Number(b.done) ||
@@ -1068,7 +1073,7 @@ function TasksList({ store }: { store: ReturnType<typeof useCrm> }) {
           <button
             type="button"
             onClick={() => toggleTask(t.id)}
-            aria-label={`Toggle "${t.title}"`}
+            aria-label={`Basculer « ${t.title} »`}
             aria-pressed={t.done}
             className={`grid h-[22px] w-[22px] shrink-0 place-items-center rounded-full border transition-all active:scale-90 ${
               t.done
@@ -1091,7 +1096,7 @@ function TasksList({ store }: { store: ReturnType<typeof useCrm> }) {
           <span
             className={`hidden font-mono text-[10px] tracking-[0.14em] sm:block ${PRIORITY_STYLE[t.priority]}`}
           >
-            {t.priority.toUpperCase()}
+            {PRIORITY_LABEL[t.priority].toUpperCase()}
           </span>
           <DueChip iso={t.due_date} />
         </li>
@@ -1116,7 +1121,7 @@ function NotesList({ store }: { store: ReturnType<typeof useCrm> }) {
               #N-{String(state.notes.length - i).padStart(3, "0")}
             </span>
             <span className="font-mono text-[10px] tracking-[0.12em] text-fog">
-              {(caseTitle(n.case_id) ?? "GENERAL NOTE").toUpperCase()}
+              {(caseTitle(n.case_id) ?? "NOTE GÉNÉRALE").toUpperCase()}
             </span>
             <span className="ml-auto font-mono text-[9.5px] tracking-[0.1em] text-dim">
               {fmtDate(n.created_at).toUpperCase()}
@@ -1129,6 +1134,5 @@ function NotesList({ store }: { store: ReturnType<typeof useCrm> }) {
   );
 }
 
-/* keep TasksView/NotesView exported for potential reuse */
 export { TasksView, NotesView, ClientsView, CasesView, Dashboard };
 export type { Task };

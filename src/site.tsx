@@ -19,15 +19,15 @@ import {
 } from "./lib/icons";
 
 /* ================================================================
-   TOPBAR
+   BARRE DE NAVIGATION
 ================================================================ */
 
 const NAV = [
   ["#services", "Services"],
-  ["#outcomes", "Outcomes"],
-  ["#process", "Process"],
-  ["#technology", "Technology"],
-  ["#corporate", "Corporate"],
+  ["#outcomes", "Résultats"],
+  ["#process", "Méthode"],
+  ["#technology", "Technologie"],
+  ["#corporate", "Entité"],
   ["#contact", "Contact"],
 ] as const;
 
@@ -43,7 +43,7 @@ function Brand({ compact = false }: { compact?: boolean }) {
         </strong>
         {!compact && (
           <small className="mt-0.5 block font-mono text-[9.5px] tracking-[0.14em] text-dim">
-            SECUTOR PRO LLC · DELAWARE, USA
+            SECUTOR PRO LLC · DELAWARE, ÉTATS-UNIS
           </small>
         )}
       </span>
@@ -66,11 +66,11 @@ function TopBar() {
         <div className="ml-auto flex items-center gap-4 lg:ml-7">
           <span className="hidden items-center gap-2 font-mono text-[10px] tracking-[0.16em] text-fog xl:flex">
             <span className="dot-live h-1.5 w-1.5 rounded-full bg-signal" />
-            SYSTEMS NOMINAL
+            SYSTÈMES NOMINAUX
           </span>
           <a href="#/crm" className="btn btn-line btn-sm">
             <IconLock className="h-3.5 w-3.5" />
-            CLIENT CRM
+            CRM CLIENT
           </a>
         </div>
       </div>
@@ -92,22 +92,22 @@ function TopBar() {
 }
 
 /* ================================================================
-   HERO + LIVE CONSOLE
+   HERO + CONSOLE EN DIRECT
 ================================================================ */
 
 const FEED_LINES = [
-  "tracing HTS-DEL-3240873 … entity graph resolved",
-  "funds-flow: 14 nodes mapped · 3 flags raised",
-  "SERP exposure 72 → 23 · delta −48 pts",
-  "related-party loop detected · BVI cluster",
-  "evidence matrix v0.9 · chain-of-custody verified",
-  "jurisdiction sweep: KY / CAY / CH complete",
-  "variance €2.4M escalated to pressure-test queue",
-  "delisting batch 2/3 approved · 6 of 14 URLs",
+  "traçage HTS-DEL-3240873 … graphe d'entités résolu",
+  "flux de fonds : 14 nœuds cartographiés · 3 signaux levés",
+  "exposition SERP 72 → 23 · delta −48 pts",
+  "boucle de parties liées détectée · cluster BVI",
+  "matrice de preuves v0.9 · chaîne de custody vérifiée",
+  "balayage juridictionnel : KY / CAY / CH terminé",
+  "écart de 2,4 M€ escaladé en file de stress-test",
+  "lot de déréférencement 2/3 approuvé · 6 URLs sur 14",
 ];
 
 function lineTone(line: string) {
-  return /flag|loop|variance/i.test(line) ? "text-amber" : "text-signal/80";
+  return /signaux|boucle|écart/i.test(line) ? "text-amber" : "text-signal/80";
 }
 
 function TerminalFeed() {
@@ -169,40 +169,40 @@ function Hero() {
           <Reveal>
             <p className="eyebrow flex items-center gap-3">
               <span className="dot-live h-1.5 w-1.5 rounded-full bg-signal" />
-              Forensic Intelligence · M&amp;A · Reputation
+              Intelligence forensique · Fusions-acquisitions · Réputation
             </p>
           </Reveal>
           <h1 className="mt-6 font-display text-[clamp(44px,6.4vw,84px)] font-bold leading-[0.98] tracking-[-0.045em] text-ink">
-            <Scramble text="Follow the Money." duration={900} />
+            <Scramble text="Suivre l'argent." duration={900} />
             <br />
             <span className="text-signal">
-              <Scramble text="Control the Narrative." delay={420} duration={1000} />
+              <Scramble text="Maîtriser le récit." delay={420} duration={1000} />
             </span>
           </h1>
           <Reveal delay={120}>
             <p className="mt-7 max-w-[620px] text-[17.5px] leading-relaxed text-fog">
-              Forensic Financial Intelligence and Digital Reputation Defense for law
-              firms, investors, executives and high-risk clients — delivered as
-              decision-ready evidence, not decks of suspicion.
+              Intelligence financière forensique et défense de la réputation numérique
+              pour cabinets d'avocats, investisseurs, dirigeants et clients à risque —
+              livrée sous forme de preuves décisionnelles, pas de présentations de soupçons.
             </p>
           </Reveal>
           <Reveal delay={200}>
             <div className="mt-9 flex flex-wrap gap-3.5">
               <a href="#contact" className="btn btn-primary">
-                Request Confidential Review
+                Demander un examen confidentiel
                 <IconArrow className="h-4 w-4" />
               </a>
               <a href="#outcomes" className="btn btn-ghost">
-                View Case Studies
+                Voir les études de cas
               </a>
             </div>
           </Reveal>
           <Reveal delay={280}>
             <div className="mt-12 grid max-w-[560px] grid-cols-3 gap-6">
               {[
-                ["48h", "Red Flag Review turnaround"],
-                ["Cross-Border", "Financial intelligence"],
-                ["Evidence-Driven", "Traceable findings"],
+                ["48 h", "Examen des signaux"],
+                ["Transfrontalier", "Intelligence financière"],
+                ["Fondé sur les preuves", "Constats traçables"],
               ].map(([v, l]) => (
                 <div key={v} className="border-t border-edge/70 pt-4">
                   <b className="block font-display text-[19px] font-bold text-ink">{v}</b>
@@ -215,7 +215,7 @@ function Hero() {
           </Reveal>
         </div>
 
-        {/* live console */}
+        {/* console en direct */}
         <Reveal delay={180}>
           <aside className="relative overflow-hidden rounded-xl border border-signal/20 bg-gradient-to-b from-[#0f271e] to-[#06130e] shadow-[0_30px_90px_rgba(0,0,0,0.5)]">
             <i className="absolute left-2.5 top-2.5 z-10 h-4 w-4 border-l border-t border-signal/60" />
@@ -225,10 +225,10 @@ function Hero() {
 
             <div className="flex items-center justify-between border-b border-line/70 px-5 py-3.5">
               <span className="font-mono text-[10px] tracking-[0.2em] text-fog">
-                AI HOLOGRAM BRIEFING
+                BRIEFING HOLOGRAMME IA
               </span>
               <span className="rounded-full border border-amber/40 bg-amber/10 px-2.5 py-1 font-mono text-[9px] tracking-[0.18em] text-amber">
-                COMING SOON
+                BIENTÔT DISPONIBLE
               </span>
             </div>
 
@@ -252,19 +252,19 @@ function Hero() {
 
             <div className="border-t border-line/70 px-5 py-4">
               <p className="text-[12.5px] leading-relaxed text-fog">
-                Your future AI briefing assistant will explain methodology, findings and
-                case strategy in real time — grounded in the same evidence graph our
-                analysts use.
+                Votre futur assistant de briefing IA expliquera en temps réel la
+                méthodologie, les constats et la stratégie du dossier — en s'appuyant sur
+                le même graphe de preuves que nos analystes.
               </p>
               <button
                 type="button"
                 onClick={() =>
-                  toast("Launch notification module will be connected in Phase 2.")
+                  toast("Le module de notification de lancement sera connecté en phase 2.")
                 }
                 className="btn btn-line btn-sm mt-3.5 w-full"
               >
                 <IconPulse className="h-3.5 w-3.5" />
-                Notify me at launch
+                Me prévenir au lancement
               </button>
             </div>
           </aside>
@@ -275,20 +275,20 @@ function Hero() {
 }
 
 /* ================================================================
-   EVIDENCE TICKER
+   BANDEAU DE PREUVES
 ================================================================ */
 
 const TICKER = [
-  "FUNDS TRACE · CAYMAN → DELAWARE",
-  "14 ENTITIES MAPPED · 3 FLAGS",
-  "RELATED-PARTY LOOP DETECTED",
-  "SERP EXPOSURE 72 → 23",
-  "MLAT CHANNEL OPENED",
-  "€2.4M VARIANCE ESCALATED",
-  "DELISTING 6/14 APPROVED",
-  "EXHIBIT K-114 LOGGED",
-  "COUNTERPARTY INTEGRITY: PASS",
-  "PRESSURE-TEST QUEUE: 3 MATTERS",
+  "TRAÇAGE DE FONDS · CAYMAN → DELAWARE",
+  "14 ENTITÉS CARTOGRAPHIÉES · 3 SIGNAUX",
+  "BOUCLE DE PARTIES LIÉES DÉTECTÉE",
+  "EXPOSITION SERP 72 → 23",
+  "CANAL MLAT OUVERT",
+  "ÉCART DE 2,4 M€ ESCALADÉ",
+  "DÉRÉFÉRENCEMENT 6/14 APPROUVÉ",
+  "PIÈCE K-114 ENREGISTRÉE",
+  "INTÉGRITÉ CONTREPARTIE : VALIDÉE",
+  "FILE DE STRESS-TEST : 3 DOSSIERS",
 ];
 
 function EvidenceTicker() {
@@ -340,9 +340,9 @@ function FundsFlowMini() {
 
 function SerpMini() {
   const rows: [string, number, string][] = [
-    ["GOOGLE", 92, "−62%"],
-    ["BING", 64, "−38%"],
-    ["IMAGES", 47, "−41%"],
+    ["GOOGLE", 92, "−62 %"],
+    ["BING", 64, "−38 %"],
+    ["IMAGES", 47, "−41 %"],
   ];
   return (
     <div className="space-y-3.5">
@@ -363,19 +363,19 @@ function SerpMini() {
 }
 
 const SERVICE_A = [
-  "Funds-flow tracing & transaction mapping",
-  "M&A red-flag & pre-acquisition reviews",
-  "Fraud indicators & anomaly analysis",
-  "Related-party & corporate network mapping",
-  "Cross-border entity intelligence",
+  "Traçage des flux de fonds et cartographie des transactions",
+  "Signaux d'alerte et examens pré-acquisition en fusions-acquisitions",
+  "Indicateurs de fraude et analyse d'anomalies",
+  "Cartographie des parties liées et des réseaux d'entités",
+  "Intelligence transfrontalière sur les entités",
 ];
 
 const SERVICE_B = [
-  "SERP exposure audits & search-risk mapping",
-  "Delisting & lawful removal workflows",
-  "Image and URL monitoring",
-  "Defensive SEO / GEO strategy",
-  "Executive & corporate reputation protection",
+  "Audits d'exposition SERP et cartographie du risque de recherche",
+  "Processus de déréférencement et de retrait légal",
+  "Surveillance des images et des URLs",
+  "Stratégie défensive de SEO / GEO",
+  "Protection de la réputation des dirigeants et des entreprises",
 ];
 
 function ServiceList({ items }: { items: string[] }) {
@@ -400,14 +400,14 @@ function Services() {
         <Reveal>
           <div className="mb-12 max-w-[760px]">
             <p className="eyebrow">
-              <span className="mr-3 text-dim">[ 01 ]</span>Two flagship capabilities
+              <span className="mr-3 text-dim">[ 01 ]</span>Deux capacités phares
             </p>
             <h2 className="mt-4 font-display text-[clamp(32px,4vw,52px)] font-bold leading-[1.02] tracking-[-0.03em]">
-              Financial forensics, plus digital reputation defense.
+              Forensique financière, plus défense de la réputation numérique.
             </h2>
             <p className="mt-4 max-w-[600px] text-[15.5px] text-fog">
-              One platform. Two disciplines. One objective: identify exposure before it
-              becomes damage — and document it so it holds.
+              Une plateforme. Deux disciplines. Un objectif : identifier l'exposition
+              avant qu'elle ne devienne un dommage — et la documenter pour qu'elle tienne.
             </p>
           </div>
         </Reveal>
@@ -422,13 +422,13 @@ function Services() {
                 <IconTrace className="h-6 w-6" />
               </span>
               <p className="mt-6 font-mono text-[10px] tracking-[0.22em] text-signal">
-                LE COMPTABLE™ · FUNDS &amp; FRAUD
+                LE COMPTABLE™ · FONDS &amp; FRAUDE
               </p>
               <h3 className="mt-2.5 font-display text-[27px] font-bold tracking-[-0.02em]">
-                Forensic Financial Intelligence
+                Intelligence financière forensique
               </h3>
               <p className="mt-1 text-[14px] font-semibold text-signal">
-                Trace. Verify. Expose.
+                Tracer. Vérifier. Exposer.
               </p>
               <div className="my-7">
                 <ServiceList items={SERVICE_A} />
@@ -440,7 +440,7 @@ function Services() {
                 href="#contact"
                 className="mt-7 inline-flex items-center gap-2 text-[13px] font-bold text-signal"
               >
-                Request a forensic review
+                Demander un examen forensique
                 <span className="transition-transform duration-300 group-hover:translate-x-1.5">
                   <IconArrow className="h-4 w-4" />
                 </span>
@@ -457,13 +457,13 @@ function Services() {
                 <IconSerp className="h-6 w-6" />
               </span>
               <p className="mt-6 font-mono text-[10px] tracking-[0.22em] text-signal">
-                DIGITAL REPUTATION FORENSICS
+                FORENSIQUE DE LA RÉPUTATION NUMÉRIQUE
               </p>
               <h3 className="mt-2.5 font-display text-[27px] font-bold tracking-[-0.02em]">
-                Search Risk &amp; Reputation Defense
+                Risque de recherche et défense de la réputation
               </h3>
               <p className="mt-1 text-[14px] font-semibold text-signal">
-                Map. Remove. Defend.
+                Cartographier. Retirer. Défendre.
               </p>
               <div className="my-7">
                 <ServiceList items={SERVICE_B} />
@@ -475,7 +475,7 @@ function Services() {
                 href="#contact"
                 className="mt-7 inline-flex items-center gap-2 text-[13px] font-bold text-signal"
               >
-                Request a reputation review
+                Demander un examen de réputation
                 <span className="transition-transform duration-300 group-hover:translate-x-1.5">
                   <IconArrow className="h-4 w-4" />
                 </span>
@@ -489,7 +489,7 @@ function Services() {
 }
 
 /* ================================================================
-   OUTCOMES
+   RÉSULTATS
 ================================================================ */
 
 function Outcomes() {
@@ -501,10 +501,10 @@ function Outcomes() {
       <div className="mx-auto w-[min(1180px,calc(100%-40px))]">
         <Reveal>
           <p className="eyebrow">
-            <span className="mr-3 text-dim">[ 02 ]</span>Selected outcomes
+            <span className="mr-3 text-dim">[ 02 ]</span>Résultats sélectionnés
           </p>
           <h2 className="mt-4 max-w-[640px] font-display text-[clamp(30px,3.6vw,46px)] font-bold leading-[1.04] tracking-[-0.03em]">
-            Decision-grade intelligence, measured.
+            Une intelligence de décision, mesurée.
           </h2>
         </Reveal>
 
@@ -512,43 +512,41 @@ function Outcomes() {
           <Reveal delay={0} className="md:col-span-3">
             <div className="border-l-2 border-signal/70 pl-5">
               <strong className="font-display text-[42px] font-bold leading-none text-signal">
-                <CountUp to={48} suffix="h" />
+                <CountUp to={48} suffix=" h" />
               </strong>
               <p className="mt-3 text-[13.5px] font-semibold text-ink">
-                Rapid Red Flag Review
+                Examen rapide des signaux
               </p>
               <p className="mt-1 text-[12.5px] leading-relaxed text-dim">
-                From engagement to decision-ready findings.
+                De la mission aux constats prêts pour la décision.
               </p>
             </div>
           </Reveal>
           <Reveal delay={90} className="md:col-span-4">
             <div className="border-l-2 border-amber/70 pl-5">
               <strong className="font-display text-[42px] font-bold leading-none text-ink">
-                €<CountUp to={22} />M <span className="text-dim">→</span>{" "}
-                <span className="text-amber">€<CountUp to={1} /></span>
+                22 M€ <span className="text-dim">→</span>{" "}
+                <span className="text-amber">1 M€</span>
               </strong>
               <p className="mt-3 text-[13.5px] font-semibold text-ink">
-                Transaction repriced after forensic pressure analysis*
+                Transaction reprisée après analyse forensique de pression*
               </p>
               <p className="mt-1 text-[12.5px] leading-relaxed text-dim">
-                Buyer walked the ask down to a nominal figure once findings landed.
+                L'acquéreur a ramené le prix demandé à un montant symbolique dès réception des constats.
               </p>
             </div>
           </Reveal>
           <Reveal delay={180} className="md:col-span-3">
             <div className="border-l-2 border-signal/70 pl-5">
               <strong className="font-display text-[42px] font-bold leading-none text-ink">
-                <CountUp to={8} /> yrs <span className="text-dim">→</span>{" "}
-                <span className="text-signal">
-                  <CountUp to={3} /> mo
-                </span>
+                8 ans <span className="text-dim">→</span>{" "}
+                <span className="text-signal">3 mois</span>
               </strong>
               <p className="mt-3 text-[13.5px] font-semibold text-ink">
-                Measurable search-removal progress*
+                Progrès mesurable de retrait de recherche*
               </p>
               <p className="mt-1 text-[12.5px] leading-relaxed text-dim">
-                A legacy exposure that had resisted eight years of informal requests.
+                Une exposition ancienne qui avait résisté à huit ans de demandes informelles.
               </p>
             </div>
           </Reveal>
@@ -558,10 +556,10 @@ function Outcomes() {
                 <CountUp to={17} />
               </strong>
               <p className="mt-3 text-[13.5px] font-semibold text-ink">
-                Jurisdictions in one engagement graph
+                Juridictions dans un seul graphe d'engagement
               </p>
               <p className="mt-1 text-[12.5px] leading-relaxed text-dim">
-                Financial, corporate and reputation intelligence, cross-border.
+                Intelligence financière, sociétaire et de réputation, transfrontalière.
               </p>
             </div>
           </Reveal>
@@ -569,9 +567,9 @@ function Outcomes() {
 
         <Reveal delay={200}>
           <p className="mt-12 max-w-[720px] text-[11px] leading-relaxed text-dim">
-            *Case outcomes are fact-specific and do not guarantee future results.
-            Supporting documentation is available subject to confidentiality constraints
-            and client privilege.
+            *Les résultats présentés sont propres à chaque dossier et ne garantissent pas
+            de résultats futurs. La documentation justificative est disponible sous réserve
+            des contraintes de confidentialité et du privilège client.
           </p>
         </Reveal>
       </div>
@@ -580,29 +578,29 @@ function Outcomes() {
 }
 
 /* ================================================================
-   PROCESS — sticky two-column
+   MÉTHODE — deux colonnes avec ancrage
 ================================================================ */
 
 const STEPS = [
   {
     n: "01",
-    t: "Detect",
-    d: "Anomalies, exposures and high-risk signals identified across financial records, registries, filings and the open web.",
+    t: "Détecter",
+    d: "Anomalies, expositions et signaux à haut risque identifiés dans les dossiers financiers, les registres, les déclarations et le web ouvert.",
   },
   {
     n: "02",
-    t: "Map",
-    d: "Entities, transactions, counterparties and digital footprints reconstructed into a single evidence graph.",
+    t: "Cartographier",
+    d: "Entités, transactions, contreparties et empreintes numériques reconstruites en un seul graphe de preuves.",
   },
   {
     n: "03",
-    t: "Pressure-Test",
-    d: "Assumptions challenged. Verified facts separated from indicators before anything reaches the report.",
+    t: "Mettre à l'épreuve",
+    d: "Les hypothèses sont challengées. Les faits vérifiés sont séparés des simples indicateurs avant toute diffusion du rapport.",
   },
   {
     n: "04",
-    t: "Deliver",
-    d: "A decision-ready evidence matrix, risk map and recommended next actions — built for counsel and capital.",
+    t: "Livrer",
+    d: "Une matrice de preuves prête pour la décision, une cartographie des risques et les prochaines actions recommandées — conçue pour les avocats et les investisseurs.",
   },
 ];
 
@@ -613,21 +611,22 @@ function Process() {
         <div className="lg:sticky lg:top-28 lg:self-start">
           <Reveal>
             <p className="eyebrow">
-              <span className="mr-3 text-dim">[ 03 ]</span>How engagements run
+              <span className="mr-3 text-dim">[ 03 ]</span>Comment se déroulent les missions
             </p>
             <h2 className="mt-4 font-display text-[clamp(32px,4vw,52px)] font-bold leading-[1.02] tracking-[-0.03em]">
-              Detect. Map.
+              Détecter. Cartographier.
               <br />
-              Pressure-test. <span className="text-signal">Deliver.</span>
+              Mettre à l'épreuve. <span className="text-signal">Livrer.</span>
             </h2>
             <p className="mt-5 max-w-[440px] text-[15px] leading-relaxed text-fog">
-              Every matter moves through the same four gates. Nothing ships until it has
-              survived the third one — that discipline is why our findings survive
-              cross-examination, boardrooms and regulators.
+              Chaque mission traverse les mêmes quatre portes. Rien n'est livré tant que
+              la troisième n'a pas été franchie — c'est cette discipline qui fait tenir
+              nos constats face au contre-interrogatoire, aux conseils d'administration
+              et aux régulateurs.
             </p>
             <p className="mt-7 inline-flex items-center gap-2.5 rounded-md border border-line bg-panel px-3.5 py-2 font-mono text-[10px] tracking-[0.18em] text-fog">
               <span className="dot-live h-1.5 w-1.5 rounded-full bg-signal" />
-              METHODOLOGY v3.2 · TYPICAL ENGAGEMENT 2–6 WEEKS
+              MÉTHODOLOGIE v3.2 · MISSION TYPE 2 À 6 SEMAINES
             </p>
           </Reveal>
         </div>
@@ -661,12 +660,12 @@ function Process() {
 }
 
 /* ================================================================
-   TECHNOLOGY CONSOLE
+   CONSOLE TECHNOLOGIQUE
 ================================================================ */
 
 function FundsFlowNetwork() {
   const nodes: [number, number, string, boolean][] = [
-    [280, 160, "TARGET", false],
+    [280, 160, "CIBLE", false],
     [104, 66, "CAY-014", false],
     [452, 58, "BVI-77", true],
     [84, 248, "DEL-324", false],
@@ -700,21 +699,21 @@ function FundsFlowNetwork() {
       })}
       {nodes.map(([x, y, label, hot]) => (
         <g key={label}>
-          {label === "TARGET" && (
+          {label === "CIBLE" && (
             <circle cx={x} cy={y} r="34" fill="none" stroke="rgba(53,242,162,0.25)" strokeWidth="1" className="dot-live" />
           )}
           <circle
             cx={x}
             cy={y}
-            r={label === "TARGET" ? 26 : 18}
+            r={label === "CIBLE" ? 26 : 18}
             fill="#0a1b15"
             stroke={hot ? "rgba(255,92,105,0.75)" : "rgba(53,242,162,0.55)"}
             strokeWidth="1.4"
           />
-          <circle cx={x} cy={y} r={label === "TARGET" ? 5 : 3.5} fill={hot ? "#ff5c69" : "#35f2a2"} />
+          <circle cx={x} cy={y} r={label === "CIBLE" ? 5 : 3.5} fill={hot ? "#ff5c69" : "#35f2a2"} />
           <text
             x={x}
-            y={y + (label === "TARGET" ? 46 : 34)}
+            y={y + (label === "CIBLE" ? 46 : 34)}
             textAnchor="middle"
             fontSize="10"
             fontFamily="IBM Plex Mono, monospace"
@@ -726,7 +725,7 @@ function FundsFlowNetwork() {
         </g>
       ))}
       <text x="368" y="92" fontSize="9" fontFamily="IBM Plex Mono, monospace" fill="#ff8b94" letterSpacing="1.4" transform="rotate(8 368 92)">
-        FLAGGED ROUTE
+        ROUTE SIGNALÉE
       </text>
     </svg>
   );
@@ -763,7 +762,7 @@ function SerpScore() {
         <span className="text-[15px] font-medium text-dim">/100</span>
       </p>
       <p className="mt-1 font-mono text-[9.5px] tracking-[0.16em] text-dim">
-        COMPOSITE EXPOSURE · PRE-ENGAGEMENT
+        EXPOSITION COMPOSITE · AVANT MISSION
       </p>
       <div className="mt-5 space-y-2.5">
         {bars.map((w, i) => (
@@ -776,7 +775,7 @@ function SerpScore() {
         ))}
       </div>
       <p className="mt-3 font-mono text-[9px] tracking-[0.14em] text-dim">
-        SERP PAGES 1–4 · 3 ENGINES
+        PAGES SERP 1–4 · 3 MOTEURS
       </p>
     </div>
   );
@@ -789,13 +788,14 @@ function TechConsole() {
         <Reveal>
           <div className="mb-10 max-w-[720px]">
             <p className="eyebrow">
-              <span className="mr-3 text-dim">[ 04 ]</span>Proprietary intelligence workflow
+              <span className="mr-3 text-dim">[ 04 ]</span>Flux d'intelligence propriétaire
             </p>
             <h2 className="mt-4 font-display text-[clamp(30px,3.8vw,48px)] font-bold leading-[1.03] tracking-[-0.03em]">
-              Technology built around the investigation.
+              Une technologie construite autour de l'enquête.
             </h2>
             <p className="mt-4 text-[15px] text-fog">
-              We expose the result, not the recipe — detection logic remains confidential.
+              Nous exposons le résultat, pas la recette — la logique de détection reste
+              confidentielle.
             </p>
           </div>
         </Reveal>
@@ -809,48 +809,48 @@ function TechConsole() {
                 <span className="h-2.5 w-2.5 rounded-full bg-signal/70" />
               </div>
               <span className="font-mono text-[10px] tracking-[0.22em] text-fog">
-                HTS CONSOLE · LIVE RENDER
+                CONSOLE HTS · RENDU EN DIRECT
               </span>
               <span className="flex items-center gap-2 font-mono text-[10px] tracking-[0.16em] text-signal">
                 <span className="dot-live h-1.5 w-1.5 rounded-full bg-signal" />
-                FEED OK
+                FLUX OK
               </span>
             </div>
 
             <div className="grid gap-px bg-line/70 lg:grid-cols-3">
               <div className="bg-deep p-6 lg:col-span-2 lg:row-span-2">
                 <p className="mb-4 font-mono text-[10px] tracking-[0.2em] text-fog">
-                  FUNDS-FLOW NETWORK
+                  RÉSEAU DE FLUX DE FONDS
                 </p>
                 <div className="h-[300px] lg:h-[380px]">
                   <FundsFlowNetwork />
                 </div>
                 <div className="mt-4 flex flex-wrap gap-x-6 gap-y-1.5 font-mono text-[9.5px] tracking-[0.14em] text-dim">
                   <span className="flex items-center gap-2">
-                    <span className="h-1.5 w-1.5 rounded-full bg-signal" /> VERIFIED NODE
+                    <span className="h-1.5 w-1.5 rounded-full bg-signal" /> NŒUD VÉRIFIÉ
                   </span>
                   <span className="flex items-center gap-2">
-                    <span className="h-1.5 w-1.5 rounded-full bg-alert" /> FLAGGED ROUTE
+                    <span className="h-1.5 w-1.5 rounded-full bg-alert" /> ROUTE SIGNALÉE
                   </span>
                   <span className="flex items-center gap-2">
-                    <span className="h-px w-5 bg-signal/50" /> TRACED EDGE
+                    <span className="h-px w-5 bg-signal/50" /> LIEN TRACÉ
                   </span>
                 </div>
               </div>
 
               <div className="bg-deep p-6">
                 <p className="mb-4 font-mono text-[10px] tracking-[0.2em] text-fog">
-                  TRANSACTION RISK MATRIX
+                  MATRICE DE RISQUE TRANSACTIONNEL
                 </p>
                 <RiskMatrix />
                 <p className="mt-4 font-mono text-[9px] tracking-[0.14em] text-dim">
-                  CELL 92 · AUTO-ESCALATED TO ANALYST
+                  CELLULE 92 · ESCALADE AUTOMATIQUE À L'ANALYSTE
                 </p>
               </div>
 
               <div className="bg-deep p-6">
                 <p className="mb-4 font-mono text-[10px] tracking-[0.2em] text-fog">
-                  SERP EXPOSURE
+                  EXPOSITION SERP
                 </p>
                 <SerpScore />
               </div>
@@ -858,14 +858,14 @@ function TechConsole() {
               <div className="bg-deep px-6 py-5 lg:col-span-3">
                 <div className="flex flex-wrap items-center">
                   <p className="mr-8 font-mono text-[10px] tracking-[0.2em] text-fog">
-                    INTELLIGENCE DASHBOARD
+                    TABLEAU DE BORD D'INTELLIGENCE
                   </p>
                   {(
                     [
-                      [12, "OPEN REVIEWS"],
-                      [27, "ACTIVE ALERTS"],
-                      [17, "JURISDICTIONS"],
-                      [248, "DATA SOURCES"],
+                      [12, "EXAMENS OUVERTS"],
+                      [27, "ALERTES ACTIVES"],
+                      [17, "JURIDICTIONS"],
+                      [248, "SOURCES DE DONNÉES"],
                     ] as [number, string][]
                   ).map(([v, l], i) => (
                     <span
@@ -893,15 +893,15 @@ function TechConsole() {
 }
 
 /* ================================================================
-   CORPORATE
+   ENTITÉ
 ================================================================ */
 
 const CORP_FACTS: [string, string][] = [
-  ["Jurisdiction", "Delaware, United States"],
-  ["Established", "March 2024"],
-  ["Delaware File No.", "3240873"],
-  ["Registered Office", "16192 Coastal Highway, Lewes, DE 19958, USA"],
-  ["Corporate Status", "Delaware franchise tax obligations current as of May 26, 2026"],
+  ["Juridiction", "Delaware, États-Unis"],
+  ["Créée en", "Mars 2024"],
+  ["N° de dossier Delaware", "3240873"],
+  ["Siège social", "16192 Coastal Highway, Lewes, DE 19958, États-Unis"],
+  ["Situation administrative", "Obligations de franchise tax du Delaware à jour au 26 mai 2026"],
 ];
 
 function Corporate() {
@@ -914,15 +914,16 @@ function Corporate() {
         <div>
           <Reveal>
             <p className="eyebrow">
-              <span className="mr-3 text-dim">[ 05 ]</span>U.S. corporate presence
+              <span className="mr-3 text-dim">[ 05 ]</span>Présence américaine
             </p>
             <h2 className="mt-4 font-display text-[clamp(34px,4.2vw,54px)] font-bold leading-none tracking-[-0.03em]">
               SECUTOR PRO LLC
             </h2>
             <p className="mt-4 max-w-[560px] text-[15px] leading-relaxed text-fog">
-              The U.S. entity supporting forensic intelligence, investigation,
-              cybersecurity and digital reputation assignments — a deliberate,
-              verifiable footprint for engagements that may end up in court.
+              L'entité américaine qui porte les missions d'intelligence forensique,
+              d'enquête, de cybersécurité et de réputation numérique — une empreinte
+              volontaire et vérifiable pour les dossiers qui peuvent finir devant un
+              tribunal.
             </p>
           </Reveal>
           <Reveal delay={140}>
@@ -954,19 +955,20 @@ function Corporate() {
               <span className="flex items-center gap-2.5 rounded-full border border-line bg-deep px-3 py-1.5 text-signal">
                 <IconFlag className="h-4 w-6" />
                 <span className="font-mono text-[9.5px] tracking-[0.18em] text-fog">
-                  DELAWARE · USA
+                  DELAWARE · ÉTATS-UNIS
                 </span>
               </span>
             </div>
             <h3 className="mt-6 font-display text-[26px] font-bold leading-tight tracking-[-0.02em]">
-              U.S. Forensic Intelligence Platform
+              Plateforme américaine d'intelligence forensique
             </h3>
             <p className="mt-3 text-[13.5px] leading-relaxed text-fog">
-              Built for law firms, investors, business buyers, executives and
-              organizations facing complex financial or reputational exposure.
+              Conçue pour les cabinets d'avocats, investisseurs, acheteurs d'entreprises,
+              dirigeants et organisations confrontés à une exposition financière ou
+              réputationnelle complexe.
             </p>
             <div className="mt-6 flex flex-wrap gap-2">
-              {["Financial Forensics", "Investigation", "Cybersecurity", "Digital Reputation"].map(
+              {["Forensique financière", "Enquête", "Cybersécurité", "Réputation numérique"].map(
                 (t) => (
                   <span
                     key={t}
@@ -979,7 +981,7 @@ function Corporate() {
             </div>
             <p className="mt-7 flex items-center gap-2.5 border-t border-line/70 pt-5 font-mono text-[9.5px] tracking-[0.16em] text-signal/90">
               <span className="dot-live h-1.5 w-1.5 rounded-full bg-signal" />
-              ENTITY STATUS: ACTIVE — GOOD STANDING
+              STATUT DE L'ENTITÉ : ACTIVE — EN BON ÉTAT
             </p>
           </div>
         </Reveal>
@@ -989,17 +991,17 @@ function Corporate() {
 }
 
 /* ================================================================
-   AUDIENCE WIRE
+   BANDEAU D'AUDIENCE
 ================================================================ */
 
 const AUDIENCE = [
-  "LAW FIRMS",
-  "INVESTORS",
+  "CABINETS D'AVOCATS",
+  "INVESTISSEURS",
   "FAMILY OFFICES",
-  "BUSINESS BUYERS",
-  "EXECUTIVES",
-  "REPUTATION COUNSEL",
-  "SELLERS & TARGETS",
+  "ACHETEURS D'ENTREPRISES",
+  "DIRIGEANTS",
+  "CONSEILS EN RÉPUTATION",
+  "VENDEURS & CIBLES",
 ];
 
 function AudienceWire() {
@@ -1033,7 +1035,7 @@ function Contact() {
     e.preventDefault();
     e.currentTarget.reset();
     setSent(true);
-    toast("Demo form only — secure backend will be connected in Phase 2.", "warn");
+    toast("Formulaire de démonstration uniquement — le backend sécurisé sera connecté en phase 2.", "warn");
     window.setTimeout(() => setSent(false), 6000);
   };
 
@@ -1043,14 +1045,15 @@ function Contact() {
         <div>
           <Reveal>
             <p className="eyebrow">
-              <span className="mr-3 text-dim">[ 06 ]</span>Confidential inquiry
+              <span className="mr-3 text-dim">[ 06 ]</span>Demande confidentielle
             </p>
             <h2 className="mt-4 font-display text-[clamp(32px,4vw,50px)] font-bold leading-[1.03] tracking-[-0.03em]">
-              Tell us what you are facing.
+              Dites-nous ce à quoi vous êtes confronté.
             </h2>
             <p className="mt-4 max-w-[480px] text-[15px] leading-relaxed text-fog">
-              Initial requests are reviewed discreetly by a senior analyst. Do not include
-              highly sensitive credentials or banking information in the first message.
+              Les demandes initiales sont examinées discrètement par un analyste senior.
+              N'incluez pas d'identifiants très sensibles ni d'informations bancaires dans
+              le premier message.
             </p>
           </Reveal>
 
@@ -1058,9 +1061,9 @@ function Contact() {
             <div className="mt-8 space-y-5">
               {(
                 [
-                  ["< 24 H", "Initial response window"],
-                  ["WORLDWIDE", "Engagement coverage"],
-                  ["PRIVILEGE-AWARE", "Intake handling"],
+                  ["< 24 H", "Délai de première réponse"],
+                  ["MONDIAL", "Couverture des missions"],
+                  ["PRIVILÈGE RESPECTÉ", "Traitement des demandes"],
                 ] as [string, string][]
               ).map(([v, l]) => (
                 <div key={l} className="border-l-2 border-signal/40 pl-4">
@@ -1075,8 +1078,9 @@ function Contact() {
 
           <Reveal delay={220}>
             <div className="mt-8 border-l-2 border-signal bg-signal/5 p-4 text-[12.5px] leading-relaxed text-fog">
-              Client CRM is included in this MVP. Secure document vault, MFA and an
-              external client portal are planned for the hardened production deployment.
+              Le CRM client est inclus dans cette version MVP. Le coffre-fort documentaire
+              sécurisé, le MFA et un portail client externe sont prévus pour le
+              déploiement de production durci.
             </div>
           </Reveal>
         </div>
@@ -1088,36 +1092,36 @@ function Contact() {
           >
             <div className="mb-6 flex items-center justify-between">
               <h3 className="font-display text-[20px] font-bold tracking-[-0.01em]">
-                Secure intake
+                Accueil sécurisé
               </h3>
               <span className="flex items-center gap-2 font-mono text-[9.5px] tracking-[0.16em] text-dim">
-                <IconLock className="h-3.5 w-3.5 text-signal" /> TLS IN PRODUCTION
+                <IconLock className="h-3.5 w-3.5 text-signal" /> TLS EN PRODUCTION
               </span>
             </div>
             <div className="grid gap-3.5 sm:grid-cols-2">
-              <input required type="text" placeholder="Full name" className="field" />
-              <input required type="email" placeholder="Email" className="field" />
+              <input required type="text" placeholder="Nom complet" className="field" />
+              <input required type="email" placeholder="Adresse e-mail" className="field" />
             </div>
             <div className="mt-3.5 grid gap-3.5 sm:grid-cols-2">
-              <input type="text" placeholder="Organization" className="field" />
+              <input type="text" placeholder="Organisation" className="field" />
               <select className="field" defaultValue="">
                 <option value="" disabled>
-                  Service interest
+                  Service souhaité
                 </option>
-                <option>Forensic Financial Intelligence</option>
-                <option>M&A Red Flag Review</option>
-                <option>Digital Reputation Forensics</option>
-                <option>Cross-Border Investigation</option>
+                <option>Intelligence financière forensique</option>
+                <option>Examen des signaux en fusions-acquisitions</option>
+                <option>Forensique de la réputation numérique</option>
+                <option>Enquête transfrontalière</option>
               </select>
             </div>
             <textarea
               required
               rows={6}
-              placeholder="Briefly describe the matter — parties, jurisdictions, what is at stake."
+              placeholder="Décrivez brièvement la situation — parties, juridictions, enjeux."
               className="field mt-3.5 resize-y"
             />
             <button type="submit" className="btn btn-primary mt-5 w-full">
-              Submit Confidentially
+              Transmettre en toute confidentialité
               <IconUpRight className="h-4 w-4" />
             </button>
             <p
@@ -1126,7 +1130,7 @@ function Contact() {
               }`}
               role="status"
             >
-              INTAKE LOGGED — DEMO ONLY, NO DATA TRANSMITTED
+              DEMANDE ENREGISTRÉE — DÉMO UNIQUEMENT, AUCUNE DONNÉE TRANSMISE
             </p>
           </form>
         </Reveal>
@@ -1136,7 +1140,7 @@ function Contact() {
 }
 
 /* ================================================================
-   FOOTER
+   PIED DE PAGE
 ================================================================ */
 
 function Footer() {
@@ -1147,20 +1151,21 @@ function Footer() {
           <div className="max-w-[420px]">
             <Brand compact />
             <p className="mt-4 text-[12.5px] leading-relaxed text-dim">
-              Operated in the United States by SECUTOR PRO LLC · Delaware. Forensic
-              intelligence for matters where the numbers and the narrative must both hold.
+              Opéré aux États-Unis par SECUTOR PRO LLC · Delaware. Intelligence
+              forensique pour les dossiers où les chiffres et le récit doivent tenir
+              tous les deux.
             </p>
           </div>
           <div className="flex gap-16">
             <div>
               <p className="mb-3.5 font-mono text-[10px] tracking-[0.2em] text-dim">
-                NAVIGATE
+                NAVIGUER
               </p>
               <div className="flex flex-col gap-2.5">
                 {[
                   ["#services", "Services"],
-                  ["#outcomes", "Case Studies"],
-                  ["#technology", "Technology"],
+                  ["#outcomes", "Études de cas"],
+                  ["#technology", "Technologie"],
                   ["#contact", "Contact"],
                 ].map(([h, l]) => (
                   <a key={h} href={h} className="navlink w-fit text-[12.5px] text-fog">
@@ -1170,16 +1175,16 @@ function Footer() {
               </div>
             </div>
             <div>
-              <p className="mb-3.5 font-mono text-[10px] tracking-[0.2em] text-dim">FIRM</p>
+              <p className="mb-3.5 font-mono text-[10px] tracking-[0.2em] text-dim">CABINET</p>
               <div className="flex flex-col gap-2.5">
                 <a href="#corporate" className="navlink w-fit text-[12.5px] text-fog">
-                  Corporate
+                  Entité
                 </a>
                 <a href="#/crm" className="navlink w-fit text-[12.5px] text-fog">
-                  Client CRM
+                  CRM client
                 </a>
                 <a href="#home" className="navlink w-fit text-[12.5px] text-fog">
-                  Back to top
+                  Retour en haut
                 </a>
               </div>
             </div>
@@ -1187,9 +1192,10 @@ function Footer() {
         </div>
         <div className="mt-10 border-t border-line/60 pt-6">
           <p className="text-[10.5px] leading-relaxed text-dim">
-            HTS Forensic Intelligence provides investigative, forensic intelligence and
-            due-diligence services. Services do not constitute a statutory financial
-            audit, CPA attestation, legal opinion, tax advice or investment advice.
+            HTS Forensic Intelligence fournit des services d'enquête, d'intelligence
+            forensique et de due diligence. Ces services ne constituent ni un audit
+            financier légal, ni une attestation d'expert-comptable, ni un avis juridique,
+            ni un conseil fiscal ou en investissement.
           </p>
           <div className="mt-5 flex flex-wrap items-center justify-between gap-3">
             <p className="font-mono text-[10px] tracking-[0.14em] text-dim">
@@ -1197,7 +1203,7 @@ function Footer() {
             </p>
             <p className="flex items-center gap-2 font-mono text-[10px] tracking-[0.14em] text-dim">
               <span className="dot-live h-1.5 w-1.5 rounded-full bg-signal" />
-              LEWES, DELAWARE · FILE NO. 3240873
+              LEWES, DELAWARE · N° DE DOSSIER 3240873
             </p>
           </div>
         </div>

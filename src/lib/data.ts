@@ -55,26 +55,48 @@ export interface CrmState {
 /* ---------------- constants ---------------- */
 
 export const SERVICES = [
-  "Forensic Financial Intelligence",
-  "M&A Red Flag Review",
-  "Funds Tracing",
-  "Digital Reputation Forensics",
-  "Cross-Border Investigation",
+  "Intelligence financière forensique",
+  "Examen des signaux en fusions-acquisitions",
+  "Traçage de fonds",
+  "Forensique de la réputation numérique",
+  "Enquête transfrontalière",
 ];
 
 export const CLIENT_TYPES = [
-  "Law Firm",
-  "Investor",
-  "Family Office",
-  "Business Buyer",
-  "Executive",
-  "Company",
-  "Other",
+  "Cabinet d'avocats",
+  "Investisseur",
+  "Family office",
+  "Acheteur d'entreprise",
+  "Dirigeant",
+  "Société",
+  "Autre",
 ];
 
 export const RISKS: Risk[] = ["Low", "Medium", "High", "Critical"];
 export const STATUSES: CaseStatus[] = ["Intake", "Active", "Waiting", "Review", "Closed"];
 export const PRIORITIES: Priority[] = ["Normal", "High", "Critical"];
+
+/* Traductions pour l'affichage */
+export const RISK_LABEL: Record<Risk, string> = {
+  Low: "Faible",
+  Medium: "Moyen",
+  High: "Élevé",
+  Critical: "Critique",
+};
+
+export const STATUS_LABEL: Record<CaseStatus, string> = {
+  Intake: "Accueil",
+  Active: "Actif",
+  Waiting: "En attente",
+  Review: "En revue",
+  Closed: "Clôturé",
+};
+
+export const PRIORITY_LABEL: Record<Priority, string> = {
+  Normal: "Normal",
+  High: "Élevée",
+  Critical: "Critique",
+};
 
 /* ---------------- seed ---------------- */
 
@@ -87,45 +109,45 @@ const day = (offset: number) =>
 export function seedState(): CrmState {
   SEQ = 1000;
   const clients: Client[] = [
-    { id: nid(), name: "Vanessa Krol", organization: "Hartwell & Sorensen LLP", email: "vkrol@hartwell-sorensen.com", client_type: "Law Firm", jurisdiction: "New York, USA", created_at: now() },
-    { id: nid(), name: "Dmitri Ansel", organization: "Meridian Capital Partners", email: "d.ansel@meridiancap.co.uk", client_type: "Investor", jurisdiction: "London, UK", created_at: now() },
-    { id: nid(), name: "Ingrid Halvorsen", organization: "Halvorsen Family Office", email: "ingrid@halvorsen-fo.no", client_type: "Family Office", jurisdiction: "Oslo, Norway", created_at: now() },
-    { id: nid(), name: "Marcus Webb", organization: "Corvid Acquisition Corp", email: "mwebb@corvidacq.com", client_type: "Business Buyer", jurisdiction: "Delaware, USA", created_at: now() },
-    { id: nid(), name: "Elena Petrova", organization: "Private", email: "e.petrova@privatemail.ch", client_type: "Executive", jurisdiction: "Zurich, Switzerland", created_at: now() },
-    { id: nid(), name: "Nikos Stavros", organization: "Atlas Marine Holdings", email: "legal@atlasmarine.gr", client_type: "Company", jurisdiction: "Piraeus, Greece", created_at: now() },
+    { id: nid(), name: "Vanessa Krol", organization: "Hartwell & Sorensen LLP", email: "vkrol@hartwell-sorensen.com", client_type: "Cabinet d'avocats", jurisdiction: "New York, États-Unis", created_at: now() },
+    { id: nid(), name: "Dmitri Ansel", organization: "Meridian Capital Partners", email: "d.ansel@meridiancap.co.uk", client_type: "Investisseur", jurisdiction: "Londres, Royaume-Uni", created_at: now() },
+    { id: nid(), name: "Ingrid Halvorsen", organization: "Halvorsen Family Office", email: "ingrid@halvorsen-fo.no", client_type: "Family office", jurisdiction: "Oslo, Norvège", created_at: now() },
+    { id: nid(), name: "Marcus Webb", organization: "Corvid Acquisition Corp", email: "mwebb@corvidacq.com", client_type: "Acheteur d'entreprise", jurisdiction: "Delaware, États-Unis", created_at: now() },
+    { id: nid(), name: "Elena Petrova", organization: "Particulier", email: "e.petrova@privatemail.ch", client_type: "Dirigeant", jurisdiction: "Zurich, Suisse", created_at: now() },
+    { id: nid(), name: "Nikos Stavros", organization: "Atlas Marine Holdings", email: "legal@atlasmarine.gr", client_type: "Société", jurisdiction: "Le Pirée, Grèce", created_at: now() },
   ];
   const [krol, ansel, halv, webb, petrova, atlas] = clients.map((c) => c.id);
   const cases: Case[] = [
-    { id: nid(), client_id: webb, title: "Project Lantern — Pre-Acquisition Red Flag Review", service: "M&A Red Flag Review", risk: "High", status: "Active", value: 185000, summary: "Target industrial group, €140M ask. Receivables aging inconsistent with shipping documents; variance ≈ €2.4M under pressure-test.", created_at: now() },
-    { id: nid(), client_id: ansel, title: "Kestrel Funds Tracing — Caribbean Route", service: "Funds Tracing", risk: "Critical", status: "Active", value: 240000, summary: "€11.6M diverted through three undisclosed BVI vehicles. Correspondent-bank data in hand; exhibit numbering from K-114.", created_at: now() },
-    { id: nid(), client_id: petrova, title: "Petrova SERP Exposure Defense", service: "Digital Reputation Forensics", risk: "Medium", status: "Review", value: 96000, summary: "14 legacy URLs across two search engines. Six delistings approved; remainder in legal-review track.", created_at: now() },
-    { id: nid(), client_id: atlas, title: "Atlas Marine — Related-Party Network Mapping", service: "Forensic Financial Intelligence", risk: "High", status: "Active", value: 150000, summary: "Procurement loop between Atlas and two subcontractors sharing a registered agent. Visualization draft with counsel.", created_at: now() },
-    { id: nid(), client_id: krol, title: "Hartwell Litigation Support — Asset Concealment", service: "Cross-Border Investigation", risk: "High", status: "Waiting", value: 210000, summary: "Debtor-side concealment indicators across CY and CH registries. Awaiting MLAT-channel records before next filing.", created_at: now() },
-    { id: nid(), client_id: halv, title: "Halvorsen Counterparty Integrity Review", service: "M&A Red Flag Review", risk: "Low", status: "Intake", value: 60000, summary: "Pre-commitment integrity screen on a Nordic logistics counterparty. Conflict check in progress.", created_at: now() },
-    { id: nid(), client_id: ansel, title: "Ansel Personal Search Risk Audit", service: "Digital Reputation Forensics", risk: "Low", status: "Closed", value: 45000, summary: "Baseline SERP audit completed. Exposure score reduced 72 → 23 over the engagement window.", created_at: now() },
-    { id: nid(), client_id: webb, title: "Corvid — Shell Vendor Anomaly Analysis", service: "Forensic Financial Intelligence", risk: "Medium", status: "Closed", value: 88000, summary: "Two shell vendors confirmed; recoveries referred to counsel. Matter archived.", created_at: now() },
+    { id: nid(), client_id: webb, title: "Projet Lantern — Examen des signaux pré-acquisition", service: "Examen des signaux en fusions-acquisitions", risk: "High", status: "Active", value: 185000, summary: "Groupe industriel cible, demande à 140 M€. Vieillissement des créances incohérent avec les documents d'expédition ; écart ≈ 2,4 M€ sous stress-test.", created_at: now() },
+    { id: nid(), client_id: ansel, title: "Traçage de fonds Kestrel — Route Caraïbes", service: "Traçage de fonds", risk: "Critical", status: "Active", value: 240000, summary: "11,6 M€ détournés via trois véhicules BVI non déclarés. Données de banques correspondantes en main ; numérotation des pièces à partir de K-114.", created_at: now() },
+    { id: nid(), client_id: petrova, title: "Défense de l'exposition SERP Petrova", service: "Forensique de la réputation numérique", risk: "Medium", status: "Review", value: 96000, summary: "14 URLs anciennes sur deux moteurs de recherche. Six déréférencements approuvés ; le reste en file de revue juridique.", created_at: now() },
+    { id: nid(), client_id: atlas, title: "Atlas Marine — Cartographie du réseau de parties liées", service: "Intelligence financière forensique", risk: "High", status: "Active", value: 150000, summary: "Boucle d'approvisionnement entre Atlas et deux sous-traitants partageant un agent enregistré. Visualisation en cours avec le conseil.", created_at: now() },
+    { id: nid(), client_id: krol, title: "Support litige Hartwell — Dissimulation d'actifs", service: "Enquête transfrontalière", risk: "High", status: "Waiting", value: 210000, summary: "Indicateurs de dissimulation côté débiteur dans les registres de Chypre et de Suisse. En attente des documents via canal MLAT avant le prochain dépôt.", created_at: now() },
+    { id: nid(), client_id: halv, title: "Examen d'intégrité de contrepartie Halvorsen", service: "Examen des signaux en fusions-acquisitions", risk: "Low", status: "Intake", value: 60000, summary: "Contrôle d'intégrité pré-engagement sur une contrepartie logistique nordique. Vérification de conflit en cours.", created_at: now() },
+    { id: nid(), client_id: ansel, title: "Audit de risque de recherche personnel Ansel", service: "Forensique de la réputation numérique", risk: "Low", status: "Closed", value: 45000, summary: "Audit SERP de référence terminé. Score d'exposition réduit de 72 à 23 sur la durée de la mission.", created_at: now() },
+    { id: nid(), client_id: webb, title: "Corvid — Analyse d'anomalies de fournisseurs fictifs", service: "Intelligence financière forensique", risk: "Medium", status: "Closed", value: 88000, summary: "Deux fournisseurs fictifs confirmés ; recouvrements transmis au conseil. Dossier archivé.", created_at: now() },
   ];
   const [lantern, kestrel, petrovaCase, atlasCase, hartwell, halvCase, vireo] = cases.map(
     (c) => c.id,
   );
   const tasks: Task[] = [
-    { id: nid(), case_id: kestrel, title: "Map intermediary entities — Cayman cluster", due_date: day(1), priority: "Critical", done: false, created_at: now() },
-    { id: nid(), case_id: hartwell, title: "Serve subpoena responses to Hartwell counsel", due_date: day(-1), priority: "Critical", done: false, created_at: now() },
-    { id: nid(), case_id: lantern, title: "Finalize evidence matrix for Project Lantern", due_date: day(2), priority: "High", done: false, created_at: now() },
-    { id: nid(), case_id: halvCase, title: "Conflict check — Halvorsen counterparty", due_date: day(3), priority: "Normal", done: false, created_at: now() },
-    { id: nid(), case_id: petrovaCase, title: "File delisting requests — remaining 8 URLs", due_date: day(5), priority: "High", done: false, created_at: now() },
-    { id: nid(), case_id: hartwell, title: "Request bank records via MLAT channel", due_date: day(9), priority: "High", done: false, created_at: now() },
-    { id: nid(), case_id: atlasCase, title: "Quarterly monitoring report — Atlas Marine", due_date: day(12), priority: "Normal", done: false, created_at: now() },
-    { id: nid(), case_id: kestrel, title: "Invoice milestone 2 — Kestrel tracing", due_date: day(-3), priority: "Normal", done: false, created_at: now() },
-    { id: nid(), case_id: vireo, title: "Archive Project Vireo workpapers", due_date: day(-6), priority: "Normal", done: true, created_at: now() },
-    { id: nid(), case_id: lantern, title: "Kick-off call minutes circulated", due_date: day(-8), priority: "Normal", done: true, created_at: now() },
+    { id: nid(), case_id: kestrel, title: "Cartographier les entités intermédiaires — cluster Cayman", due_date: day(1), priority: "Critical", done: false, created_at: now() },
+    { id: nid(), case_id: hartwell, title: "Transmettre les réponses aux assignations au conseil Hartwell", due_date: day(-1), priority: "Critical", done: false, created_at: now() },
+    { id: nid(), case_id: lantern, title: "Finaliser la matrice de preuves pour le Projet Lantern", due_date: day(2), priority: "High", done: false, created_at: now() },
+    { id: nid(), case_id: halvCase, title: "Vérification de conflit — contrepartie Halvorsen", due_date: day(3), priority: "Normal", done: false, created_at: now() },
+    { id: nid(), case_id: petrovaCase, title: "Déposer les demandes de déréférencement — 8 URLs restantes", due_date: day(5), priority: "High", done: false, created_at: now() },
+    { id: nid(), case_id: hartwell, title: "Demander les relevés bancaires via canal MLAT", due_date: day(9), priority: "High", done: false, created_at: now() },
+    { id: nid(), case_id: atlasCase, title: "Rapport de suivi trimestriel — Atlas Marine", due_date: day(12), priority: "Normal", done: false, created_at: now() },
+    { id: nid(), case_id: kestrel, title: "Facturer l'étape 2 — Traçage Kestrel", due_date: day(-3), priority: "Normal", done: false, created_at: now() },
+    { id: nid(), case_id: vireo, title: "Archiver les dossiers de travail du Projet Vireo", due_date: day(-6), priority: "Normal", done: true, created_at: now() },
+    { id: nid(), case_id: lantern, title: "Diffuser le compte-rendu de l'appel de lancement", due_date: day(-8), priority: "Normal", done: true, created_at: now() },
   ];
   const notes: Note[] = [
-    { id: nid(), case_id: kestrel, body: "Three previously undisclosed BVI vehicles surface in correspondent-bank data. Chain-of-custody for statements verified; exhibit numbering begins at K-114.", created_at: now() },
-    { id: nid(), case_id: lantern, body: "Target's Q3 receivables aging inconsistent with shipping documents — variance ≈ €2.4M. Escalated to pressure-test queue ahead of revised bid letter.", created_at: now() },
-    { id: nid(), case_id: petrovaCase, body: "Delisting approved for 6 of 14 URLs. Remaining 8 escalated to legal-review track; image results down 41% week over week.", created_at: now() },
-    { id: nid(), case_id: atlasCase, body: "Related-party loop confirmed between Atlas procurement and two subcontractors sharing a registered agent. Drafting network visualization for counsel.", created_at: now() },
-    { id: nid(), case_id: null, body: "Analyst rotation complete — coverage maintained across EU and US-Central time slots. Registry sweep for KY / CAY / CH completed without new flags.", created_at: now() },
+    { id: nid(), case_id: kestrel, body: "Trois véhicules BVI précédemment non déclarés apparaissent dans les données de banques correspondantes. Chaîne de custody des relevés vérifiée ; numérotation des pièces à partir de K-114.", created_at: now() },
+    { id: nid(), case_id: lantern, body: "Vieillissement des créances T3 de la cible incohérent avec les documents d'expédition — écart ≈ 2,4 M€. Escaladé en file de stress-test avant la lettre d'offre révisée.", created_at: now() },
+    { id: nid(), case_id: petrovaCase, body: "Déréférencement approuvé pour 6 URLs sur 14. Les 8 restantes escaladées en file de revue juridique ; résultats d'images en baisse de 41 % semaine après semaine.", created_at: now() },
+    { id: nid(), case_id: atlasCase, body: "Boucle de parties liées confirmée entre l'approvisionnement d'Atlas et deux sous-traitants partageant un agent enregistré. Visualisation du réseau en cours pour le conseil.", created_at: now() },
+    { id: nid(), case_id: null, body: "Rotation des analystes terminée — couverture maintenue sur les fuseaux horaires UE et US-Central. Balayage des registres KY / CAY / CH terminé sans nouveaux signaux.", created_at: now() },
   ];
   return { clients, cases, tasks, notes };
 }
@@ -258,16 +280,16 @@ export const fmtDate = (iso: string) =>
 export function dueInfo(
   iso: string | null,
 ): { label: string; tone: "ok" | "warn" | "bad" | "dim" } {
-  if (!iso) return { label: "No due date", tone: "dim" };
+  if (!iso) return { label: "Pas d'échéance", tone: "dim" };
   const today = new Date();
   today.setHours(0, 0, 0, 0);
   const d = new Date(iso + "T00:00:00");
   const diff = Math.round((d.getTime() - today.getTime()) / 86400000);
-  if (diff < 0) return { label: `Overdue ${-diff}d`, tone: "bad" };
-  if (diff === 0) return { label: "Due today", tone: "warn" };
-  if (diff === 1) return { label: "Due tomorrow", tone: "warn" };
+  if (diff < 0) return { label: `En retard de ${-diff} j`, tone: "bad" };
+  if (diff === 0) return { label: "Échéance aujourd'hui", tone: "warn" };
+  if (diff === 1) return { label: "Échéance demain", tone: "warn" };
   return {
-    label: `Due ${d.toLocaleDateString("en-US", { month: "short", day: "numeric" })}`,
+    label: `Échéance le ${d.toLocaleDateString("fr-FR", { day: "numeric", month: "short" })}`,
     tone: "ok",
   };
 }
